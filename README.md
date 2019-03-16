@@ -9,7 +9,7 @@
 ### Kevin's Section:
 * Question: Where are the locations of the three busiest bike stations for each day of the week?
 
-* Findings:
+* Findings: The data I collected shows that the most commonly used stations are located in Northeast Minneapolis especially on weekdays (Mon-Fri). 
 
 ```{r}
 locations <- read_csv("Nice_Ride_2017_Station_Locations.csv")
@@ -46,8 +46,7 @@ case_location <- cases %>%
 
 ggplot(data=case_location) +
   geom_jitter(mapping = aes(x=Longitude, y=Latitude, color = as.factor(day)), size = 2) +
-  facet_wrap(~ day)
-  labs(x='Longitude', y='Latitude') +
+  facet_wrap(~ day) +
   ggtitle('Locations of Most Used Stations by Day') +
   scale_color_discrete(name = "Weekday")
 ```
