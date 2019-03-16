@@ -7,7 +7,7 @@
 ## Individual Section
 
 ### Kevin's Section:
-* Question: 
+* Question: Where are the locations of the three busiest bike stations for each day of the week?
 
 * Findings:
 
