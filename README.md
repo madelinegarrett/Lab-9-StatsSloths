@@ -9,7 +9,7 @@
 ### Kevin's Section:
 * Question: Where are the locations of the three busiest bike stations for each day of the week?
 
-* Findings: The data I collected shows that the most commonly used stations are located in Northeast Minneapolis especially on weekdays (Mon-Fri). The Coffman Union and Washington Ave SE & Union Street SE stations are used often during the week and the Lake Street & Knox Ave S station is used often on the weekend.
+* Findings: The data I collected shows that the most commonly used stations are located in Northeast Minneapolis, especially on weekdays (Mon-Fri). The Coffman Union and Washington Ave SE & Union Street SE stations are used often during the week and the Lake Street & Knox Ave S station is used often on the weekend.
 
 ```{r}
 locations <- read_csv("Nice_Ride_2017_Station_Locations.csv")
