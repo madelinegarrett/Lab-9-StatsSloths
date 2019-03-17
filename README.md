@@ -98,34 +98,14 @@ count(all, day == "Sat")
 * Findings: 
 
 ```{r}
-install.packages(lubridate)
-install.packages(OpenStreetMap)
 # Load libraries
 library(tidyverse)
 library(lubridate)
-library(OpenStreetMap)
-
-# Set latitudes and longitudes of city map
-LAT1 <- 44.88     
-LAT2 <- 45.05     
-LON1 <- -93.35    
-LON2 <- -93.08    
-
-# Generate map
-map <- openmap(c(LAT2,LON1), c(LAT1,LON2), zoom = NULL, 
-               type = "esri",                           
-               mergeTiles = TRUE)                       
-
-# Project map to latitude and longitude
-map.latlon <- openproj(map, projection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs") 
-
-# Plot map of Minneapolis
-autoplot(map.latlon) # Plots a map 
 
 
-# Plot all niceride stations
-autoplot(map.latlon) + # plots a map 
-  geom_point(data=locations, 
+# plot Nice Ride Stations
+ggplot() +
+  geom_point(data=Nice_Ride_2017_Station_Locations, 
                aes(x=Longitude, y=Latitude), 
                color = 'blue', size = 1) +
   labs(x='Longitude', y='Latitude') +
