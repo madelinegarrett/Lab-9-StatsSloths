@@ -94,9 +94,13 @@ count(all, day == "Sat")
 ```
 
 ### Zandy's Section:
-* Question: What are the busiest bike routes depending on the day and the time of day?
-* Findings: 
+* Question: Is there a difference in duration of rentals  between  members and non-members?
+* Findings: The average duration for members was about 15.20 minutes while the average duration for non-members was about 76.62 minutes which indicates that most of nice Ride's revenue comes from non-members. The data also showed that with about 120,00 more members, the data shows that most members actually have shorter duration times for rentals than non-members.
 
+* # of members = 290,070
+* # of non-members = 170,646
+* Average duration for rentals in minutes for members = 911.39/60 = 15.20 minutes
+* Average duration for rental in minutes for non-Member = 4596.983/60 = 76.62 minutes
 ```{r}
 Nice_Ride_2017_Station_Locations <- read_csv("C:/Users/zandy/Downloads/Nice_ride_data_2017_season/Nice_ride_data_2017_season/Nice_Ride_2017_Station_Locations.csv")
 Parsed with column specification:
@@ -138,21 +142,19 @@ ggplot() +
   labs(x='Longitude', y='Latitude') +
   ggtitle('Locations of NiceRide Stations')
 
+Members <- Nice_ride_trip_history_2017_season %>%
+  filter(`Account type`== "Member")
 
-start <- history %>%
-  left_join(stations, c(`Start station` = "Name")) %>%
-  rename(start_lat = Latitude, start_long = Longitude) %>%
-  select(-Number) %>%
-  mutate(case = row_number())
-end <- history %>%
-  left_join(stations, c(`End station` = "Name")) %>%
-  rename(end_lat = Latitude, end_long = Longitude) %>%
-  select(-Number) %>%
-  mutate(case = row_number())
-all <- start %>%
-  inner_join(end, by = "case") %>%
-  select(-25, -(14:22)) %>%
-  mutate(day = wday(`Start date.x`, label = TRUE))
+Non_Members <- Nice_ride_trip_history_2017_season %>%
+  filter(`Account type` == "Casual")
+
+members <- Nice_ride_trip_history_2017_season %>%
+  filter(`Account type`== "Member") %>%
+  summarise(mean = mean(`Total duration (Seconds)`))
+
+non_member <- Nice_ride_trip_history_2017_season %>%
+  filter(`Account type`== "Casual") %>%
+  summarise(mean = mean(`Total duration (Seconds)`))
 ```
 
 ## Team Report:
