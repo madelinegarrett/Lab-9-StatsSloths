@@ -154,6 +154,41 @@ non_member <- Nice_ride_trip_history_2017_season %>%
   summarise(mean = mean(`Total duration (Seconds)`))
 ```
 
+### Madeline’s Section:
+* Question: How many rides are there on each hour and when do people ride the most?
+* Findings: The busiest time that people rent bikes was between hours 10 through 12 and hours 16 through 18. During these hours we had the the most riders with night time and early morning hours 1am to 4am and 11pm to 1am. 
+
+```{r}
+stations <- read.csv("Station_Locations.csv")
+history <- read_csv("trip_history_2017_season.csv", col_types = cols(`Start date` = col_datetime(format = "%m/%d/%Y %H:%M"), `End date` = col_datetime(format = "%m/%d/%Y %H:%M"), `Total duration (Seconds)` = col_integer())) %>%
+  rename(duration = `Total duration (Seconds)`) %>%
+  mutate(minutes = duration %/% 60)
+```
+```{r}
+data1<- history %>%
+  left_join(stations, c(`Start station` = "Name")) %>%
+  rename(start_lat = Latitude, start_long = Longitude) %>%
+  select(-Number) %>%
+  mutate(case = row_number())
+data2 <- history %>%
+  left_join(stations, c(`End station` = "Name")) %>%
+  rename(end_lat = Latitude, end_long = Longitude) %>%
+  select(-Number) %>%
+  mutate(case = row_number())
+Total <- start %>%
+  inner_join(end, by = "case") %>%
+  select(-25, -(14:22)) %>%
+  mutate(day = wday(`Start date.x`, label = TRUE))
+```
+```{r}
+count(all, hour == “4” | hour== “5” | hour== “6”)
+count(all, hour == “7” | hour== “8” | hour== “9”)
+count(all, hour == “10” | hour== “11” | hour== “12”)
+count(all, hour == “13” | hour== “14” | hour== “15”)
+count(all, hour == “16” | hour== “17” | hour== “18”)
+count(all, hour == “19” | hour== “20” |hour== “21”)
+```
+
 ## Team Report:
 * I, Kevin Luth, found the busiest three stations for each day of the week. I started by changing the column types for the start and end dates to the date-time format. I then used left_join() to get the latitude and longitudes into the same dataset as the one with the trip details for both the start and end locations. I mutated a column called case to serve as surrogate key to indicate the individual trips. I then used inner_join() to join the dataset with the starting coordinates to the one with the ending coordinates by the case key I created. I then mutated a column displaying the day of the week of each trip by using the wday() function. I then grouped by day and counted the uses of each station and arranged it in descending order by day, showing only the top 3 counts for each day using the top_n() function. Then I left joined the dataset with the coordinates to my new dataset and graphed the location of the most frequented stations using the coordinates. I also changed the color of each day's point and used facet_wrap() by the day to make it easy to tell where the locations were for each day.
 
