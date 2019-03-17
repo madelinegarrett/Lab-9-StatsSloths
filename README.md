@@ -94,7 +94,7 @@ count(all, day == "Sat")
 ```
 
 ### Zandy's Section:
-* Question: What are the busiiest bike routes depending on the day and the time of day?
+* Question: What are the busiest bike routes depending on the day and the time of day?
 * Findings: 
 
 ```{r}
@@ -138,6 +138,21 @@ ggplot() +
   labs(x='Longitude', y='Latitude') +
   ggtitle('Locations of NiceRide Stations')
 
+
+start <- history %>%
+  left_join(stations, c(`Start station` = "Name")) %>%
+  rename(start_lat = Latitude, start_long = Longitude) %>%
+  select(-Number) %>%
+  mutate(case = row_number())
+end <- history %>%
+  left_join(stations, c(`End station` = "Name")) %>%
+  rename(end_lat = Latitude, end_long = Longitude) %>%
+  select(-Number) %>%
+  mutate(case = row_number())
+all <- start %>%
+  inner_join(end, by = "case") %>%
+  select(-25, -(14:22)) %>%
+  mutate(day = wday(`Start date.x`, label = TRUE))
 ```
 
 ## Team Report:
