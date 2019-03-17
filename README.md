@@ -98,6 +98,33 @@ count(all, day == "Sat")
 * Findings: 
 
 ```{r}
+Nice_Ride_2017_Station_Locations <- read_csv("C:/Users/zandy/Downloads/Nice_ride_data_2017_season/Nice_ride_data_2017_season/Nice_Ride_2017_Station_Locations.csv")
+Parsed with column specification:
+cols(
+  Number = col_character(),
+  Name = col_character(),
+  Latitude = col_double(),
+  Longitude = col_double(),
+  `Total docks` = col_double()
+)
+> View(Nice_Ride_2017_Station_Locations)
+> library(readr)
+> Nice_ride_trip_history_2017_season <- read_csv("C:/Users/zandy/Downloads/Nice_ride_data_2017_season/Nice_ride_data_2017_season/Nice_ride_trip_history_2017_season.csv")
+Parsed with column specification:
+cols(
+  `Start date` = col_character(),
+  `Start station` = col_character(),
+  `Start station number` = col_character(),
+  `End date` = col_character(),
+  `End station` = col_character(),
+  `End station number` = col_character(),
+  `Account type` = col_character(),
+  `Total duration (Seconds)` = col_double()
+)
+> View(Nice_ride_trip_history_2017_season)
+
+
+
 # Load libraries
 library(tidyverse)
 library(lubridate)
